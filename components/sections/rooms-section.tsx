@@ -1,9 +1,14 @@
-"use client"
+'use client';
 
 import { PageHeader } from "@/components/page-header"
 import { Check } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
-export function RoomsSection() {
+interface RoomsSectionProps {
+  onNavigate?: (section: string) => void
+}
+
+export function RoomsSection({ onNavigate }: RoomsSectionProps) {
   const roomRates = [
     {
       type: "Kamar + Sarapan",
@@ -37,7 +42,6 @@ export function RoomsSection() {
 
   return (
     <div>
-      {/* PageHeader menggunakan .jpeg */}
       <PageHeader
         tag="Akomodasi"
         title="Kamar & Promo"
@@ -57,6 +61,7 @@ export function RoomsSection() {
             </h2>
           </div>
 
+          {/* Rates Table */}
           <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-2xl">
             <div className="overflow-x-auto">
               <table className="w-full">
@@ -87,6 +92,18 @@ export function RoomsSection() {
               * Tipe Kamar tersedia: Superior / Deluxe / Grand Suite
             </div>
           </div>
+
+          <div className="text-center mt-10">
+            {onNavigate && (
+              <Button
+                onClick={() => onNavigate('booking')}
+                size="lg"
+                className="bg-primary text-primary-foreground hover:bg-secondary px-12 py-6 text-lg font-medium rounded-lg"
+              >
+                Pesan Kamar Sekarang
+              </Button>
+            )}
+          </div>
         </div>
       </section>
 
@@ -108,7 +125,8 @@ export function RoomsSection() {
                 Kenyamanan Terbaik untuk Istirahat Anda
               </h2>
               <p className="text-muted-foreground text-lg mb-10 leading-relaxed">
-                Setiap kamar kami dirancang dengan perhatian khusus pada detail dan kenyamanan.
+                Setiap kamar kami dirancang dengan perhatian khusus pada detail dan kenyamanan, 
+                memastikan pengalaman menginap yang tak terlupakan.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[

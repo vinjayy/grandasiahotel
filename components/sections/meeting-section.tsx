@@ -1,262 +1,223 @@
 "use client"
 
 import { PageHeader } from "@/components/page-header"
-import { Clock, Users, Monitor, Coffee, UtensilsCrossed } from "lucide-react"
+import { Clock, Users, Monitor, Coffee, UtensilsCrossed, CheckCircle2, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { GalleryGrid } from "@/components/gallery-grid"
 
-export function MeetingSection() {
+interface MeetingSectionProps {
+  onNavigate?: (section: string) => void
+}
+
+export function MeetingSection({ onNavigate }: MeetingSectionProps) {
   const meetingGalleryImages = [
-    {
-      src: "/meeting.jpeg",
-      alt: "Conference Room",
-      category: "Ruang Konferensi"
-    },
-    {
-      src: "/meeting2.jpeg",
-      alt: "Meeting Setup",
-      category: "Setup Meeting"
-    },
-    {
-      src: "/meeting3.jpeg",
-      alt: "Business Event",
-      category: "Event Bisnis"
-    }
+    { src: "/meeting.jpeg", alt: "Conference Room", category: "Ruang Konferensi" },
+    { src: "/meeting2.jpeg", alt: "Meeting Setup", category: "Setup Meeting" },
+    { src: "/meeting3.jpeg", alt: "Business Event", category: "Event Bisnis" }
   ]
 
   const meetingPackages = [
     {
-      title: "Half Day",
+      title: "Half Day Meeting",
       duration: "5 Jam",
-      icon: Clock,
-      meetingOnly: "Rp 270k/pax",
-      smallMeeting: "Rp 290k/pax",
+      price: "IDR 270.000",
+      unit: "/ Pax",
+      features: ["1x Coffee Break", "1x Lunch/Dinner", "Standard Sound System", "Memo Pad & Pencil", "Mineral Water & Candies"],
+      highlight: false
     },
     {
-      title: "One Day",
+      title: "One Day Meeting",
       duration: "8 Jam",
-      icon: Clock,
-      meetingOnly: "Rp 320k/pax",
-      smallMeeting: "Rp 350k/pax",
+      price: "IDR 320.000",
+      unit: "/ Pax",
+      features: ["2x Coffee Break", "1x Lunch/Dinner", "Standard Sound System", "Memo Pad & Pencil", "Mineral Water & Candies"],
+      highlight: true // Highlighted Package
     },
     {
-      title: "Full Day",
+      title: "Full Day Meeting",
       duration: "10 Jam",
-      icon: Clock,
-      meetingOnly: "Rp 430k/pax",
-      smallMeeting: "Rp 460k/pax",
+      price: "IDR 430.000",
+      unit: "/ Pax",
+      features: ["2x Coffee Break", "1x Lunch", "1x Dinner", "Standard Sound System", "Memo Pad & Pencil"],
+      highlight: false
     },
     {
-      title: "Short Meet",
-      duration: "3 Jam",
-      icon: Clock,
-      meetingOnly: "Rp 185k/pax",
-      smallMeeting: "Rp 210k/pax",
+      title: "Full Board (Twin)",
+      duration: "Menginap",
+      price: "IDR 900.000",
+      unit: "/ Pax",
+      features: ["Room (Twin Share)", "Breakfast", "2x Coffee Break", "1x Lunch", "1x Dinner"],
+      highlight: false
     },
-  ]
-
-  const residentialPackages = [
-    {
-      title: "Full Board Meeting I",
-      subtitle: "Menginap + Meeting",
-      twinSharing: "Rp 900.000",
-      single: "Rp 1.100.000",
-    },
-    {
-      title: "Full Board Meeting II",
-      subtitle: "Meeting Package",
-      twinSharing: "Rp 550.000",
-      single: "Rp 600.000",
-    },
-  ]
-
-  const banquetRentals = [
-    { capacity: "30-50 Pax", price: "Rp 3.500.000" },
-    { capacity: "50-100 Pax", price: "Rp 5.000.000" },
-    { capacity: "100-150 Pax", price: "Rp 6.500.000" },
-    { capacity: "150-300 Pax", price: "Rp 8.000.000" },
-    { capacity: "300-500 Pax (Standing Party)", price: "Rp 11.000.000" },
   ]
 
   const addOns = [
-    { icon: Coffee, name: "Coffee Break", price: "Rp 85k/pax" },
-    { icon: UtensilsCrossed, name: "Lunch/Dinner", price: "Rp 150k/pax" },
-    { icon: Monitor, name: "LCD Projector", price: "Rp 1.250k" },
+    { icon: Coffee, name: "Coffee Break", price: "IDR 85.000", unit: "/ pax" },
+    { icon: UtensilsCrossed, name: "Lunch / Dinner", price: "IDR 150.000", unit: "/ pax" },
+    { icon: Monitor, name: "LCD Projector", price: "IDR 1.250.000", unit: "/ day" },
   ]
 
   return (
-    <div>
+    <div className="bg-white">
       <PageHeader
-        tag="Ruang Meeting"
-        title="Meeting & Event"
-        subtitle="Solusi lengkap untuk kebutuhan meeting, konferensi, dan acara bisnis Anda"
-        backgroundImage="url('/meeting3.jpeg')"
+        tag="Business & Events"
+        title="Meeting & Conference"
+        subtitle="Solusi lengkap untuk kebutuhan meeting, konferensi, dan acara bisnis Anda dengan fasilitas modern."
+        backgroundImage="url('/meeting.jpeg')"
       />
 
-      {/* Meeting Packages */}
-      <section className="py-32 bg-background">
+      {/* --- PACKAGES GRID --- */}
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="inline-block px-5 py-2 bg-secondary/10 border border-secondary/20 rounded-full text-secondary text-xs font-medium tracking-widest uppercase mb-6">
-              Paket Meeting
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground text-balance leading-tight">
-              Pilihan Paket Fleksibel
-            </h2>
+            <span className="text-primary font-bold tracking-widest uppercase text-sm mb-2 block">Our Packages</span>
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-slate-900 mb-4">Meeting Packages</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto">Pilih paket yang sesuai dengan durasi dan kebutuhan acara Anda.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {meetingPackages.map((pkg, index) => (
               <div 
                 key={index}
-                className="group bg-card border border-border rounded-2xl p-8 hover:bg-primary transition-all duration-500 shadow-lg hover:shadow-2xl hover:-translate-y-1"
+                className={`relative flex flex-col p-8 rounded-3xl border transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
+                  pkg.highlight 
+                    // UBAH: Menggunakan bg-primary (warna brand) bukan slate-900 (hitam)
+                    ? "bg-primary text-primary-foreground border-primary ring-4 ring-primary/20 scale-105 z-10" 
+                    : "bg-white text-slate-900 border-slate-200 hover:border-primary/50"
+                }`}
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-14 h-14 bg-secondary/10 group-hover:bg-white/20 rounded-xl flex items-center justify-center transition-all group-hover:scale-110">
-                    <pkg.icon className="h-7 w-7 text-secondary group-hover:text-white transition-colors" />
+                {pkg.highlight && (
+                  <div className="absolute top-4 right-4 bg-white text-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                    Popular
                   </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-bold text-foreground group-hover:text-primary-foreground transition-colors">
-                      {pkg.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground group-hover:text-primary-foreground/70 transition-colors">
-                      {pkg.duration}
-                    </p>
+                )}
+
+                <div className="mb-6">
+                  <h3 className="font-serif text-xl font-bold mb-2">{pkg.title}</h3>
+                  <div className="flex items-baseline gap-1 mb-1">
+                    {/* Harga Kontras: Putih jika highlight, Primary jika biasa */}
+                    <span className={`text-2xl font-bold ${pkg.highlight ? "text-white" : "text-primary"}`}>
+                      {pkg.price}
+                    </span>
+                  </div>
+                  <span className={`text-sm ${pkg.highlight ? "text-primary-foreground/80" : "text-slate-500"}`}>{pkg.unit}</span>
+                  
+                  {/* Badge Durasi */}
+                  <div className={`mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-medium ${
+                    pkg.highlight 
+                      ? "bg-white/20 text-white" 
+                      : "bg-slate-100 text-slate-600"
+                  }`}>
+                    <Clock className="w-3.5 h-3.5" />
+                    {pkg.duration}
                   </div>
                 </div>
-                
-                <div className="space-y-4 pt-6 border-t border-border group-hover:border-white/20 transition-colors">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground group-hover:text-primary-foreground/80 transition-colors">Meeting Only</span>
-                    <span className="font-bold text-foreground group-hover:text-primary-foreground transition-colors text-base">{pkg.meetingOnly}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground group-hover:text-primary-foreground/80 transition-colors">Small Meeting</span>
-                    <span className="font-bold text-foreground group-hover:text-primary-foreground transition-colors text-base">{pkg.smallMeeting}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Meeting Gallery */}
-      <section className="py-32 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-5 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-xs font-medium tracking-widest uppercase mb-6">
-              Galeri Meeting
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground text-balance leading-tight mb-6">
-              Ruang Meeting & Event Kami
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-              Fasilitas meeting room yang modern dan lengkap untuk berbagai kebutuhan acara bisnis Anda.
-            </p>
-          </div>
-          
-          <GalleryGrid images={meetingGalleryImages} columns={3} />
-        </div>
-      </section>
-
-      {/* Residential / Full Board */}
-      <section className="py-32 bg-muted/30">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-5 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-xs font-medium tracking-widest uppercase mb-6">
-              Paket Menginap
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground text-balance leading-tight">
-              Residential / Full Board
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {residentialPackages.map((pkg, index) => (
-              <div 
-                key={index}
-                className="bg-card border border-border rounded-2xl p-10 shadow-xl hover:shadow-2xl hover:border-primary/50 transition-all"
-              >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center">
-                    <Users className="h-8 w-8 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-2xl font-bold text-foreground">{pkg.title}</h3>
-                    <p className="text-sm text-muted-foreground">{pkg.subtitle}</p>
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center p-5 bg-muted rounded-xl">
-                    <span className="text-foreground font-medium">Twin Sharing</span>
-                    <span className="font-bold text-primary text-xl">{pkg.twinSharing}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-5 bg-muted rounded-xl">
-                    <span className="text-foreground font-medium">Single</span>
-                    <span className="font-bold text-primary text-xl">{pkg.single}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Banquet Rental */}
-      <section className="py-32 bg-background">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-5 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-xs font-medium tracking-widest uppercase mb-6">
-              Sewa Ruangan
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance leading-tight">
-              Sewa Ruangan Banquet
-            </h2>
-            <p className="text-muted-foreground text-lg">Room Rental Only (3 Hours)</p>
-          </div>
-
-          <div className="bg-primary rounded-2xl overflow-hidden shadow-2xl mb-16 border border-border">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-white/20">
-                    <th className="px-8 py-6 text-left text-primary-foreground font-semibold text-base">Kapasitas</th>
-                    <th className="px-8 py-6 text-right text-primary-foreground font-semibold text-base">Harga Sewa</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {banquetRentals.map((rental, index) => (
-                    <tr key={index} className="border-b border-white/10 last:border-0 hover:bg-white/5 transition-colors">
-                      <td className="px-8 py-5 text-primary-foreground text-base">{rental.capacity}</td>
-                      <td className="px-8 py-5 text-right text-accent font-bold text-xl">{rental.price}</td>
-                    </tr>
+                <ul className="space-y-3 mb-8 flex-1">
+                  {pkg.features.map((feat, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm">
+                      <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${
+                        pkg.highlight ? "text-white" : "text-primary"
+                      }`} />
+                      <span className={pkg.highlight ? "text-primary-foreground/90" : "text-slate-600"}>{feat}</span>
+                    </li>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                </ul>
 
-          {/* Add-ons */}
-          <div>
-            <h3 className="font-serif text-2xl font-bold text-foreground text-center mb-10">Tambahan (Add-ons)</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {addOns.map((addon, index) => (
-                <div 
-                  key={index}
-                  className="flex items-center gap-5 p-6 bg-card border border-border rounded-2xl hover:border-primary/50 hover:shadow-lg transition-all"
+                <Button 
+                  onClick={() => onNavigate && onNavigate("booking-meeting")}
+                  className={`w-full py-6 rounded-xl font-bold transition-all ${
+                    pkg.highlight 
+                      ? "bg-white text-primary hover:bg-white/90" // Tombol Putih di background Primary
+                      : "bg-slate-100 hover:bg-slate-200 text-slate-900"
+                  }`}
                 >
-                  <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-                    <addon.icon className="h-7 w-7 text-primary" />
+                  Book Now
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- BANQUET RENTAL --- */}
+      <section className="py-24 bg-slate-50 border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-2 block">Room Rental</span>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-6">Banquet Hall Rental</h2>
+              <p className="text-slate-600 mb-8 leading-relaxed">
+                Menyewakan ruangan saja untuk kebutuhan acara privat, arisan, atau seminar singkat. Harga sewa berlaku untuk pemakaian 3 jam.
+              </p>
+              
+              <div className="space-y-4">
+                {[
+                  { label: "Small (30-50 Pax)", price: "IDR 3.500.000" },
+                  { label: "Medium (50-100 Pax)", price: "IDR 5.000.000" },
+                  { label: "Large (100-150 Pax)", price: "IDR 6.500.000" },
+                  { label: "Grand (150-300 Pax)", price: "IDR 8.000.000" },
+                  { label: "Standing Party (up to 500)", price: "IDR 11.000.000" },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex justify-between items-center p-4 bg-white rounded-xl border border-slate-200 hover:border-primary/50 transition-colors shadow-sm">
+                    <span className="font-medium text-slate-700">{item.label}</span>
+                    <span className="font-bold text-primary">{item.price}</span>
                   </div>
-                  <div>
-                    <p className="font-medium text-foreground text-base">{addon.name}</p>
-                    <p className="text-sm text-primary font-bold">{addon.price}</p>
-                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-8">
+                <Button onClick={() => onNavigate && onNavigate("booking-meeting")} className="gap-2">
+                  Sewa Ruangan <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
+            <div className="relative h-full min-h-[400px] rounded-2xl overflow-hidden shadow-2xl">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: "url('/meeting2.jpeg')" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-8 left-8 text-white">
+                    <p className="font-serif text-2xl font-bold">Pacific Ballroom</p>
+                    <p className="text-white/80">Capacity up to 500 Pax</p>
                 </div>
-              ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* --- ADD ONS --- */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-3xl font-bold text-slate-900">Additional Services</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {addOns.map((item, index) => (
+              <div key={index} className="flex items-center gap-4 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-primary">
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">{item.name}</h4>
+                  <p className="text-primary font-medium text-sm">{item.price} <span className="text-slate-400 font-normal">{item.unit}</span></p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      <section className="py-24 bg-slate-900 text-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-3xl font-bold mb-4">Our Facilities</h2>
+            <p className="text-slate-400">Ruang meeting modern untuk menunjang produktivitas Anda</p>
+          </div>
+          <GalleryGrid images={meetingGalleryImages} columns={3} />
         </div>
       </section>
     </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { Wifi, Coffee, Clock, MapPin, Briefcase, Bed, UtensilsCrossed, ImageIcon } from "lucide-react"
+import { Wifi, Coffee, Clock, MapPin, Briefcase, Bed, UtensilsCrossed, Star, ArrowRight, Music } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GalleryGrid } from "@/components/gallery-grid"
 
@@ -9,208 +9,243 @@ interface HomeSectionProps {
 }
 
 export function HomeSection({ onNavigate }: HomeSectionProps) {
-  const features = [
-    { icon: Wifi, label: "High Speed Wifi" },
-    { icon: Coffee, label: "Coffee Shop" },
-    { icon: Clock, label: "24H Service" },
-    { icon: MapPin, label: "Strategic Location" },
-  ]
-
+  
   const highlights = [
     {
-      icon: Briefcase,
-      title: "Business Center",
-      description: "Ruang pertemuan modern dengan kapasitas fleksibel untuk kebutuhan korporat Anda.",
-    },
-    {
       icon: Bed,
-      title: "Kamar Mewah",
-      description: "Interior elegan dengan pemandangan kota, menjamin istirahat berkualitas.",
+      title: "Luxury Rooms",
+      description: "Istirahat berkualitas dengan interior elegan dan pemandangan kota Jakarta.",
+      action: "rooms"
     },
     {
       icon: UtensilsCrossed,
-      title: "Restoran & Dining",
-      description: "Sajian kuliner lokal dan internasional yang memanjakan lidah Anda.",
+      title: "The Cathay Resto",
+      description: "Nikmati sajian kuliner legendaris dengan cita rasa otentik Chinese & Western.",
+      action: "resto"
+    },
+    {
+      icon: Briefcase,
+      title: "Meeting & Events",
+      description: "Ballroom luas dan ruang meeting modern untuk kesuksesan acara bisnis Anda.",
+      action: "meeting"
+    },
+    {
+      icon: Music,
+      title: "Executive KTV",
+      description: "Hiburan kelas atas dengan sistem audio terbaik untuk melepas penat.",
+      action: "ktv"
     },
   ]
 
   const galleryImages = [
-    {
-      src: "outdoor.jpeg",
-      alt: "Hotel Exterior",
-      category: "Eksterior"
-    },
-    {
-      src: "resepsion.jpeg",
-      alt: "Hotel Lobby",
-      category: "Lobby"
-    },
-    {
-      src: "kamar.jpeg",
-      alt: "Luxury Room",
-      category: "Kamar"
-    },
-    {
-      src: "karoke.jpeg",
-      alt: "Karoke Room",
-      category: "Karoke Room"
-    },
-    {
-      src: "resto.jpeg",
-      alt: "Restaurant",
-      category: "Restoran"
-    },
-    {
-      src: "karoke2.jpeg",
-      alt: "Karoke Room",
-      category: "Karoke Room"
-    },
+    { src: "/lobby.jpeg", alt: "Grand Lobby", category: "Interior" },
+    { src: "/kamarheader.jpeg", alt: "Grand Suite", category: "Rooms" },
+    { src: "/resto.jpeg", alt: "Cathay Resto", category: "Dining" },
+    { src: "/meeting3.jpeg", alt: "Ballroom", category: "Events" },
+    { src: "/karoke.jpeg", alt: "KTV Room", category: "Entertainment" },
+    { src: "/gedung.jpeg", alt: "Exterior", category: "Exterior" },
   ]
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-        {/* Background Image */}
+    <div className="bg-white">
+      
+      {/* --- HERO SECTION --- */}
+      <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        {/* Background Parallax Effect (Simulated) */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('lobby.jpeg')",
-          }}
-        />
-        {/* Modern Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-foreground/70 to-foreground/90" />
-        
-        <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 text-center py-32">
-          <span className="inline-block px-5 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-xs font-medium tracking-widest uppercase mb-8 animate-fade-in">
-            Welcome to Jakarta
-          </span>
-          <h1 className="font-serif text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 text-balance leading-tight tracking-tight">
-            Grand Asia Hotel
-          </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto mb-12 text-pretty leading-relaxed">
-            Kenyamanan dan kemewahan di jantung Penjaringan. Solusi terbaik untuk liburan keluarga & bisnis Anda.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
-              onClick={() => onNavigate("contact")}
-              size="lg"
-              className="bg-white text-primary hover:bg-white/90 px-10 py-7 text-lg font-medium rounded-full shadow-2xl hover:shadow-white/20 transition-all hover:scale-105"
-            >
-              Hubungi Kami
-            </Button>
-            <Button 
-              onClick={() => onNavigate("rooms")}
-              size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-primary px-10 py-7 text-lg font-medium rounded-full transition-all hover:scale-105 bg-transparent"
-            >
-              Lihat Promo
-            </Button>
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
+          style={{ backgroundImage: "url('/lobby.jpeg')" }}
+        >
+           {/* Dark Gradient Overlay for text readability */}
+           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center pt-20">
+          <div className="animate-in fade-in zoom-in duration-1000">
+            <div className="flex items-center justify-center gap-4 mb-6">
+               <div className="h-[1px] w-12 bg-white/60"></div>
+               <span className="text-white/90 text-sm md:text-base font-medium tracking-[0.3em] uppercase">
+                 Welcome to Jakarta
+               </span>
+               <div className="h-[1px] w-12 bg-white/60"></div>
+            </div>
+            
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-lg">
+              Grand Asia Hotel
+            </h1>
+            
+            <p className="text-lg md:text-2xl text-white/80 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
+              Experience the perfect blend of business and leisure <br className="hidden md:block" />
+              in the heart of Penjaringan.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
+              <Button 
+                onClick={() => onNavigate("booking")}
+                size="lg"
+                className="bg-[#7d0000] hover:bg-[#5a0000] text-white px-10 py-7 text-lg rounded-full shadow-xl transition-all hover:scale-105 min-w-[200px]"
+              >
+                Book Now
+              </Button>
+              <Button 
+                onClick={() => onNavigate("rooms")}
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-black px-10 py-7 text-lg rounded-full backdrop-blur-sm bg-white/5 transition-all hover:scale-105 min-w-[200px]"
+              >
+                Explore Rooms
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-2 bg-white/60 rounded-full animate-pulse" />
+        {/* Scroll Down Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-white/60 text-xs tracking-widest uppercase">Scroll</span>
+            <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-32 bg-muted/30">
+      {/* --- ABOUT / WELCOME SECTION --- */}
+      <section className="py-24 md:py-32 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <span className="inline-block px-5 py-2 bg-secondary/10 border border-secondary/20 rounded-full text-secondary text-xs font-medium tracking-widest uppercase mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            
+            {/* Text Content */}
+            <div className="order-2 lg:order-1">
+              <span className="text-[#7d0000] font-bold tracking-widest uppercase text-sm mb-4 block">
                 Tentang Kami
               </span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-8 text-balance leading-tight">
-                Kenyamanan di Jantung Jakarta
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">
+                A Sanctuary of Comfort <br /> in North Jakarta
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-12">
+              <p className="text-slate-600 text-lg leading-relaxed mb-8 text-justify">
                 Grand Asia Hotel hadir sebagai oase ketenangan di tengah hiruk pikuk Jakarta Utara. 
                 Terletak strategis di kawasan Penjaringan, kami menawarkan akses tak tertandingi ke 
                 pusat bisnis, kuliner legendaris, dan destinasi wisata sejarah.
               </p>
               
-              <div className="grid grid-cols-2 gap-4">
-                {features.map((feature, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-center gap-3 p-5 bg-card rounded-xl border border-border hover:border-secondary/50 hover:shadow-lg transition-all group"
-                  >
-                    <div className="w-11 h-11 bg-secondary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-secondary/20 transition-colors">
-                      <feature.icon className="h-5 w-5 text-secondary" />
-                    </div>
-                    <span className="text-sm font-medium text-foreground">{feature.label}</span>
-                  </div>
-                ))}
+              <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-10">
+                <div className="flex items-center gap-3">
+                   <div className="p-2 bg-slate-100 rounded-full"><Wifi className="h-5 w-5 text-slate-700"/></div>
+                   <span className="text-slate-700 font-medium">High Speed WiFi</span>
+                </div>
+                <div className="flex items-center gap-3">
+                   <div className="p-2 bg-slate-100 rounded-full"><Clock className="h-5 w-5 text-slate-700"/></div>
+                   <span className="text-slate-700 font-medium">24H Service</span>
+                </div>
+                <div className="flex items-center gap-3">
+                   <div className="p-2 bg-slate-100 rounded-full"><Coffee className="h-5 w-5 text-slate-700"/></div>
+                   <span className="text-slate-700 font-medium">Coffee Shop</span>
+                </div>
+                <div className="flex items-center gap-3">
+                   <div className="p-2 bg-slate-100 rounded-full"><MapPin className="h-5 w-5 text-slate-700"/></div>
+                   <span className="text-slate-700 font-medium">Strategic Location</span>
+                </div>
               </div>
+
+              <Button onClick={() => onNavigate("contact")} variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-50">
+                More About Us
+              </Button>
             </div>
-            
-            <div className="relative">
-              <div 
-                className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-cover bg-center border border-border"
-                style={{
-                  backgroundImage: "url('lobby.jpeg')",
-                }}
-              />
-              <div className="absolute -bottom-8 -left-8 bg-primary text-primary-foreground p-8 rounded-xl shadow-2xl border border-border">
-                <p className="text-xl font-bold">Grand Asia</p>
-                <p className="text-sm opacity-80 mt-1">Hotel Jakarta</p>
+
+            {/* Image Composition */}
+            <div className="order-1 lg:order-2 relative">
+              <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
+                <img src="/resepsion.jpeg" alt="Reception" className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700" />
               </div>
+              {/* Decorative elements */}
+              <div className="absolute -bottom-10 -left-10 w-2/3 h-2/3 bg-[#7d0000] rounded-2xl -z-0 opacity-5 hidden md:block"></div>
+              <div className="absolute -top-10 -right-10 w-1/2 h-1/2 border-2 border-[#7d0000]/20 rounded-2xl -z-0 hidden md:block"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Highlights Grid */}
-      <section className="py-32 bg-background">
+      {/* --- SERVICES HIGHLIGHTS --- */}
+      <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <span className="inline-block px-5 py-2 bg-secondary/10 border border-secondary/20 rounded-full text-secondary text-xs font-medium tracking-widest uppercase mb-6">
-              Fasilitas
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground text-balance leading-tight">
-              Fasilitas Unggulan Kami
-            </h2>
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-6">World Class Facilities</h2>
+            <p className="text-slate-500 text-lg">
+              Kami menyediakan fasilitas lengkap untuk menunjang kenyamanan istirahat maupun produktivitas bisnis Anda.
+            </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {highlights.map((item, index) => (
               <div 
                 key={index}
-                className="group p-10 bg-card border border-border rounded-2xl hover:bg-primary transition-all duration-500 cursor-pointer hover:shadow-2xl hover:-translate-y-1"
+                onClick={() => onNavigate(item.action)}
+                className="group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer relative overflow-hidden"
               >
-                <div className="w-16 h-16 bg-secondary/10 group-hover:bg-white/20 rounded-xl flex items-center justify-center mb-8 transition-all group-hover:scale-110">
-                  <item.icon className="h-8 w-8 text-secondary group-hover:text-white transition-colors" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-bl-full -mr-4 -mt-4 transition-colors group-hover:bg-[#7d0000]/5"></div>
+                
+                <div className="relative z-10">
+                  <div className="w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:bg-[#7d0000] transition-colors duration-300">
+                    <item.icon className="h-7 w-7" />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-slate-900 mb-3 group-hover:text-[#7d0000] transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-6">
+                    {item.description}
+                  </p>
+                  <span className="inline-flex items-center text-sm font-bold text-slate-900 group-hover:underline">
+                    Explore <ArrowRight className="ml-2 h-4 w-4" />
+                  </span>
                 </div>
-                <h3 className="font-serif text-2xl font-bold text-foreground group-hover:text-primary-foreground mb-4 transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground group-hover:text-primary-foreground/80 leading-relaxed text-lg transition-colors">
-                  {item.description}
-                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section className="py-32 bg-background">
+      {/* --- PROMO BANNER --- */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-5 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-xs font-medium tracking-widest uppercase mb-6">
-              Galeri
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground text-balance leading-tight mb-6">
-              Jelajahi Keindahan Hotel Kami
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-              Lihat suasana dan fasilitas yang membuat Grand Asia Hotel menjadi pilihan terbaik untuk Anda.
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: "url('/gedung.jpeg')" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-transparent" />
+            
+            <div className="relative z-10 p-12 md:p-24 max-w-2xl text-white">
+              <div className="flex items-center gap-2 mb-6">
+                <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                <span className="font-bold tracking-widest uppercase text-sm">Special Offer</span>
+              </div>
+              <h2 className="font-serif text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                Liburan Keluarga <br/> <span className="text-[#fca5a5]">Lebih Berkesan</span>
+              </h2>
+              <p className="text-slate-300 text-lg mb-10 leading-relaxed">
+                Dapatkan penawaran eksklusif untuk Holiday School Package & Paket Tahun Baru. Diskon spesial untuk pemesanan melalui website.
+              </p>
+              <Button 
+                onClick={() => onNavigate("rooms")}
+                size="lg"
+                className="bg-white text-slate-900 hover:bg-slate-100 px-10 py-7 rounded-full font-bold text-lg shadow-xl"
+              >
+                Lihat Promo
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- GALLERY PREVIEW --- */}
+      <section className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div>
+              <span className="text-[#7d0000] font-bold tracking-widest uppercase text-sm mb-2 block">Galeri Foto</span>
+              <h2 className="font-serif text-4xl font-bold text-slate-900">Grand Asia Experience</h2>
+            </div>
+            <p className="text-slate-500 max-w-md text-right md:text-left">
+              Jelajahi setiap sudut keindahan dan kenyamanan yang kami tawarkan.
             </p>
           </div>
           
@@ -218,40 +253,6 @@ export function HomeSection({ onNavigate }: HomeSectionProps) {
         </div>
       </section>
 
-      {/* Promo Section */}
-      <section className="py-32 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div 
-            className="relative rounded-2xl overflow-hidden min-h-[600px] flex items-center border border-border"
-            style={{
-              backgroundImage: "url('gedung.jpeg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/40" />
-            
-            <div className="relative z-10 p-12 md:p-20 max-w-2xl">
-              <span className="inline-block px-5 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-medium tracking-widest uppercase mb-6">
-                Promo Spesial
-              </span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-balance leading-tight">
-                Liburan Impian Keluarga Dimulai Di Sini
-              </h2>
-              <p className="text-white/90 text-lg mb-10 text-pretty leading-relaxed">
-                Nikmati momen tak terlupakan bersama keluarga dengan penawaran spesial Holiday School Package & Paket Tahun Baru.
-              </p>
-              <Button 
-                onClick={() => onNavigate("rooms")}
-                size="lg"
-                className="bg-white text-primary hover:bg-white/90 px-10 py-7 text-lg font-medium rounded-full shadow-2xl hover:shadow-white/20 transition-all hover:scale-105"
-              >
-                Lihat Penawaran
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }

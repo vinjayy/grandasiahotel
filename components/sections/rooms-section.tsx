@@ -1,7 +1,17 @@
 'use client';
 
 import { PageHeader } from "@/components/page-header"
-import { Check } from "lucide-react"
+import { 
+  Wifi, 
+  Wind, 
+  Coffee, 
+  Bath, 
+  Tv, 
+  Maximize2, 
+  CheckCircle2, 
+  Clock,
+  Info
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface RoomsSectionProps {
@@ -9,197 +19,256 @@ interface RoomsSectionProps {
 }
 
 export function RoomsSection({ onNavigate }: RoomsSectionProps) {
-  const roomRates = [
+  
+  // Data Kamar
+  const rooms = [
     {
-      type: "Kamar + Sarapan",
-      publishPrice: "Rp 600.000",
-      walkInPrice: "Rp 550.000",
+      name: "SUPERIOR SINGLE/TWIN ROOM",
+      price: "IDR 400.000",
+      unit: "/Night",
+      size: "26.0 m²",
+      images: [
+        "/SUPERIOR-1.jpg", 
+        "/SP1.jpg",
+        "/SP2.jpg",
+        "/SP3.jpg"
+      ], 
+      amenities: [
+        "Bathtub", "Area tempat duduk", "Mineral Water", "Air panas", "AC", "Free WiFi"
+      ]
     },
     {
-      type: "Kamar Saja (Room Only)",
-      publishPrice: "Rp 500.000",
-      walkInPrice: "Rp 450.000",
+      name: "DELUXE ROOM",
+      price: "IDR 500.000",
+      unit: "/Night",
+      size: "36.0 m²",
+      images: [
+        "/DELUXE-1.jpg",
+        "/DL1.jpg",
+        "/DL2.jpg",
+        "/DL3.jpg"
+      ],
+      amenities: [
+        "Bathtub", "Coffe Maker", "Area tempat duduk", "Mineral Water", "Air panas", "AC", "Free WiFi"
+      ]
     },
+    {
+      name: "GRAND SUITE ROOM",
+      price: "IDR 600.000",
+      unit: "/Night",
+      size: "36.0 m²",
+      images: [
+        "/GRAND-SUITE-1.jpg",
+        "/GS1.jpg",
+        "/GS2.jpg",
+        "/GS3.jpg"
+      ],
+      amenities: [
+        "Bathtub", "Coffe Maker", "Area tempat duduk", "Mineral Water", "Air panas", "AC", "Free WiFi"
+      ]
+    }
   ]
 
-  const holidayPackages = [
+  // Data Fasilitas (Dikelompokkan)
+  const facilityCategories = [
     {
-      duration: "2 Malam",
-      withBreakfast: "Rp 900.000",
-      roomOnly: "Rp 700.000",
+      title: "Umum",
+      items: ["AC", "Aula", "Banquet", "Kamar dengan pintu penghubung", "Ruang keluarga", "Alat pemanas", "Area bebas asap rokok", "Area merokok", "Teras"]
     },
     {
-      duration: "4 Malam",
-      withBreakfast: "Rp 1.600.000",
-      roomOnly: "Rp 1.300.000",
+      title: "Fasilitas Publik",
+      items: ["Area parkir", "Kopi/teh di lobby", "Kafe", "Lift", "Layanan kamar 24 jam", "Restoran", "Layanan kamar", "Brankas", "WiFi di area umum"]
     },
     {
-      duration: "1 Minggu",
-      withBreakfast: "-",
-      roomOnly: "Rp 1.200.000",
+      title: "Fasilitas Kamar",
+      items: ["Bathtub", "TV kabel", "Meja", "Pengering rambut", "Brankas kamar", "Kulkas", "Lemari es", "Pancuran", "TV"]
     },
+    {
+      title: "Service Hotel",
+      items: ["Concierge/layanan tamu", "Keamanan 24 jam", "Laundry", "Penitipan bagasi", "Resepsionis 24 jam"]
+    },
+    {
+      title: "Makanan & Minuman",
+      items: ["Bar", "Sarapan prasmanan", "Chinese – Western Food"]
+    },
+    {
+      title: "Kegiatan Lainnya",
+      items: ["Karaoke", "Layanan pijat"]
+    },
+    {
+      title: "Konektivitas & Bisnis",
+      items: ["WiFi gratis", "Internet Kamar", "Fasilitas bisnis", "Fasilitas rapat"]
+    },
+    {
+      title: "Fasilitas Terdekat",
+      items: ["ATM/Bank", "Supermarket"]
+    }
   ]
 
   return (
-    <div>
+    <div className="bg-white">
       <PageHeader
         tag="Akomodasi"
         title="Kamar & Promo"
-        subtitle="Temukan kenyamanan sempurna dengan pilihan kamar dan penawaran terbaik kami"
+        subtitle="Temukan kenyamanan sempurna dengan pilihan kamar terbaik kami"
         backgroundImage="url('/kamarheader.jpeg')"
       />
 
-      {/* Room Rates Section */}
-      <section className="py-32 bg-background">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-5 py-2 bg-secondary/10 border border-secondary/20 rounded-full text-secondary text-xs font-medium tracking-widest uppercase mb-6">
-              Tarif Kamar
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground text-balance leading-tight">
-              Harga Terbaik untuk Anda
-            </h2>
-          </div>
-
-          {/* Rates Table */}
-          <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-2xl">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-primary text-primary-foreground">
-                    <th className="px-8 py-6 text-left font-semibold text-base">Tipe Paket</th>
-                    <th className="px-8 py-6 text-center font-semibold text-base">Harga Publish</th>
-                    <th className="px-8 py-6 text-center font-semibold text-base">
-                      <span className="flex items-center justify-center gap-2">
-                        Harga Walk-In
-                        <span className="bg-accent text-white text-xs px-3 py-1 rounded-full font-medium">Best Deal</span>
-                      </span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {roomRates.map((rate, index) => (
-                    <tr key={index} className="border-b border-border last:border-0 hover:bg-muted/50 transition-colors">
-                      <td className="px-8 py-6 font-medium text-foreground text-base">{rate.type}</td>
-                      <td className="px-8 py-6 text-center text-muted-foreground line-through text-base">{rate.publishPrice}</td>
-                      <td className="px-8 py-6 text-center text-secondary font-bold text-xl">{rate.walkInPrice}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="px-8 py-5 bg-muted/30 text-sm text-muted-foreground border-t border-border">
-              * Tipe Kamar tersedia: Superior / Deluxe / Grand Suite
-            </div>
-          </div>
-
-          <div className="text-center mt-10">
-            {onNavigate && (
-              <Button
-                onClick={() => onNavigate('booking')}
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-secondary px-12 py-6 text-lg font-medium rounded-lg"
-              >
-                Pesan Kamar Sekarang
-              </Button>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Room Features */}
-      <section className="py-32 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div 
-              className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-cover bg-center border border-border order-2 lg:order-1"
-              style={{
-                backgroundImage: "url('/kamarheader.jpeg')",
-              }}
-            />
-            <div className="order-1 lg:order-2">
-              <span className="inline-block px-5 py-2 bg-secondary/10 border border-secondary/20 rounded-full text-secondary text-xs font-medium tracking-widest uppercase mb-6">
-                Fasilitas Kamar
-              </span>
-              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-8 text-balance leading-tight">
-                Kenyamanan Terbaik untuk Istirahat Anda
-              </h2>
-              <p className="text-muted-foreground text-lg mb-10 leading-relaxed">
-                Setiap kamar kami dirancang dengan perhatian khusus pada detail dan kenyamanan, 
-                memastikan pengalaman menginap yang tak terlupakan.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {[
-                  "AC dengan kontrol individual",
-                  "TV LED 32 inch",
-                  "WiFi gratis berkecepatan tinggi",
-                  "Kamar mandi dengan shower",
-                  "Mini bar",
-                  "Brankas pribadi",
-                  "Meja kerja",
-                  "Layanan kamar 24 jam",
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="w-7 h-7 bg-secondary/10 rounded-lg flex items-center justify-center shrink-0">
-                      <Check className="h-4 w-4 text-secondary" />
-                    </div>
-                    <span className="text-foreground text-base font-medium">{feature}</span>
+      {/* --- ROOMS LIST SECTION --- */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-24">
+          
+          {rooms.map((room, index) => (
+            <div key={index} className="flex flex-col lg:flex-row gap-10 lg:gap-14 items-start border-b border-border pb-20 last:border-0 last:pb-0">
+              
+              {/* Left Side: Images Gallery */}
+              <div className="w-full lg:w-1/2 space-y-4">
+                {/* Main Image */}
+                {/* UBAH: aspect-[4/3] menjadi aspect-[16/10] */}
+                <div className="aspect-[16/10] w-full rounded-2xl overflow-hidden bg-muted shadow-lg relative group">
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+                    <img 
+                      src={room.images[0]} 
+                      alt={`${room.name} Main View`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "https://placehold.co/800x600?text=No+Image";
+                      }}
+                    />
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur text-primary px-4 py-1.5 rounded-full text-sm font-bold shadow-sm">
+                    {room.size}
+                  </div>
+                </div>
 
-      {/* Holiday School Package */}
-      <section className="py-32 bg-background">
-        <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <div 
-            className="relative rounded-2xl overflow-hidden p-12 md:p-16 border border-border"
-            style={{
-              backgroundImage: "url('/kamarheader.jpeg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/95 via-secondary/90 to-secondary/85" />
-            
-            <div className="relative z-10">
-              <div className="text-center mb-12">
-                <span className="inline-block px-5 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-medium tracking-widest uppercase mb-6">
-                  Promo Spesial
-                </span>
-                <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4 text-balance leading-tight">
-                  Holiday School Package
-                </h2>
-                <p className="text-white/90 text-lg">15 – 31 Desember 2025 (Tipe Superior)</p>
+                {/* Sub Images (Grid of 3) */}
+                <div className="grid grid-cols-3 gap-4">
+                  {[1, 2, 3].map((imgIdx) => (
+                    <div key={imgIdx} className="aspect-square rounded-xl overflow-hidden bg-muted shadow-sm cursor-pointer hover:opacity-90 transition-opacity">
+                      <img 
+                        src={room.images[imgIdx]} 
+                        alt={`${room.name} detail ${imgIdx}`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "https://placehold.co/400x400?text=Detail";
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden border border-white/20">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-white/20">
-                      <th className="px-8 py-5 text-left text-white font-semibold text-base">Durasi</th>
-                      <th className="px-8 py-5 text-center text-white font-semibold text-base">Dengan Sarapan</th>
-                      <th className="px-8 py-5 text-center text-white font-semibold text-base">Room Only</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {holidayPackages.map((pkg, index) => (
-                      <tr key={index} className="border-b border-white/10 last:border-0 hover:bg-white/5 transition-colors">
-                        <td className="px-8 py-5 text-white font-medium text-base">{pkg.duration}</td>
-                        <td className="px-8 py-5 text-center text-white text-base">{pkg.withBreakfast}</td>
-                        <td className="px-8 py-5 text-center text-white font-bold text-lg">{pkg.roomOnly}</td>
-                      </tr>
+              {/* Right Side: Details */}
+              <div className="w-full lg:w-1/2 flex flex-col h-full">
+                <div className="mb-6">
+                  <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-3">{room.name}</h2>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-bold text-primary">{room.price}</span>
+                    <span className="text-muted-foreground text-lg">{room.unit}</span>
+                  </div>
+                </div>
+
+                <div className="bg-secondary/5 rounded-2xl p-8 mb-8 border border-secondary/20">
+                  <h3 className="font-semibold mb-4 text-foreground flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-secondary" />
+                    Fasilitas Kamar Ini
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-4">
+                    {room.amenities.map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3 text-slate-700">
+                        {/* Icon Mapping Sederhana */}
+                        {item.includes("WiFi") ? <Wifi className="h-4 w-4 text-secondary/70" /> :
+                         item.includes("AC") ? <Wind className="h-4 w-4 text-secondary/70" /> :
+                         item.includes("Coffe") ? <Coffee className="h-4 w-4 text-secondary/70" /> :
+                         item.includes("Bathtub") ? <Bath className="h-4 w-4 text-secondary/70" /> :
+                         item.includes("TV") ? <Tv className="h-4 w-4 text-secondary/70" /> :
+                         item.includes("m²") ? <Maximize2 className="h-4 w-4 text-secondary/70" /> :
+                         <CheckCircle2 className="h-4 w-4 text-secondary/70" />
+                        }
+                        <span className="text-sm font-medium">{item}</span>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
+                  </div>
+                </div>
+
+                <div className="mt-auto">
+                  {onNavigate && (
+                    <Button
+                      onClick={() => onNavigate('booking')}
+                      size="lg"
+                      className="w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-7 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 transition-all hover:-translate-y-1"
+                    >
+                      BOOK {room.name}
+                    </Button>
+                  )}
+                </div>
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+      </section>
+
+      {/* --- FACILITIES & SERVICES LIST --- */}
+      <section className="py-24 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-4">Fasilitas & Layanan</h2>
+            <p className="text-slate-500">Kenyamanan lengkap untuk pengalaman menginap terbaik Anda</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+            {facilityCategories.map((cat, idx) => (
+              <div key={idx} className="space-y-4">
+                <h3 className="font-bold text-lg text-primary border-b border-primary/20 pb-2">{cat.title}</h3>
+                <ul className="space-y-2">
+                  {cat.items.map((item, i) => (
+                    <li key={i} className="text-sm text-slate-600 flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-secondary/60 mt-1.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- POLICIES SECTION --- */}
+      <section className="py-12 bg-white">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          <div className="bg-amber-50 border border-amber-100 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 shadow-sm">
+            <div className="bg-amber-100 p-4 rounded-full text-amber-600 shrink-0">
+              <Info className="h-8 w-8" />
+            </div>
+            <div className="text-center md:text-left flex-1">
+              <h3 className="font-serif text-xl font-bold text-amber-900 mb-2">Kebijakan Akomodasi</h3>
+              <p className="text-amber-800/80 mb-4 text-sm">Informasi penting mengenai waktu kedatangan dan keberangkatan Anda.</p>
+              
+              <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 sm:gap-12">
+                <div className="flex items-center gap-3">
+                  <Clock className="h-5 w-5 text-amber-600" />
+                  <div className="text-left">
+                    <p className="text-xs font-bold text-amber-600 uppercase tracking-wider">Check-in</p>
+                    <p className="font-bold text-amber-900">Dari 14:00 WIB</p>
+                  </div>
+                </div>
+                <div className="w-px h-10 bg-amber-200 hidden sm:block" />
+                <div className="flex items-center gap-3">
+                  <Clock className="h-5 w-5 text-amber-600" />
+                  <div className="text-left">
+                    <p className="text-xs font-bold text-amber-600 uppercase tracking-wider">Check-out</p>
+                    <p className="font-bold text-amber-900">Sebelum 12:00 WIB</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   )
 }

@@ -9,10 +9,11 @@ import {
   ArrowLeft, 
   ShieldCheck, 
   Info,
-  CalendarDays
+  CalendarDays,
+  BedDouble
 } from 'lucide-react'
 
-// Mock images untuk logo payment (menggunakan placeholder yang representatif)
+// Mock images untuk logo payment
 const PAYMENT_LOGOS = [
   { name: 'Visa', url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg' },
   { name: 'Mastercard', url: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg' },
@@ -37,19 +38,36 @@ export interface BookingData {
 }
 
 export function BookingSection({ onNavigate, onBookingComplete }: BookingSectionProps) {
+  // Update opsi kamar sesuai rooms-section.tsx
+  const roomOptions = [
+    { 
+      value: 'superior', 
+      label: 'Superior Single/Twin', 
+      price: '400000', 
+      sub: '26 m², Bathtub, Free WiFi' 
+    },
+    { 
+      value: 'deluxe', 
+      label: 'Deluxe Room', 
+      price: '500000', 
+      sub: '36 m², Bathtub, Coffee Maker' 
+    },
+    { 
+      value: 'grand-suite', 
+      label: 'Grand Suite Room', 
+      price: '600000', 
+      sub: '36 m², Spacious, Full Amenities' 
+    },
+  ]
+
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
     email: '',
     bookingDate: '',
-    roomType: 'kamar-sarapan',
+    roomType: 'superior', // Default ke superior
     paymentMethod: 'transfer-bank',
   })
-
-  const roomOptions = [
-    { value: 'kamar-sarapan', label: 'Kamar + Sarapan', price: '550000', sub: 'Termasuk sarapan untuk 2 orang' },
-    { value: 'kamar-only', label: 'Kamar Saja', price: '450000', sub: 'Hanya menginap tanpa sarapan' },
-  ]
 
   const paymentMethods = [
     { id: 'transfer-bank', label: 'Kartu Kredit / Debit Online', icon: CreditCard },
@@ -58,7 +76,7 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
   ]
 
   const selectedRoom = roomOptions.find(r => r.value === formData.roomType)
-  const totalPriceRaw = selectedRoom?.price || '550000'
+  const totalPriceRaw = selectedRoom?.price || '0'
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -73,7 +91,7 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
     }
     onBookingComplete({
       ...formData,
-      totalPrice: `Rp ${totalPriceRaw.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`,
+      totalPrice: `Rp ${parseInt(totalPriceRaw).toLocaleString('id-ID')}`,
     })
   }
 
@@ -87,7 +105,7 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
             className="flex items-center gap-2 text-slate-600 hover:text-primary transition-all font-medium"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Kembali</span>
+            <span>Kembali ke Pilihan Kamar</span>
           </button>
         </div>
       </nav>
@@ -152,15 +170,18 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
                 </div>
                 <div className="p-8 space-y-6">
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-3 text-center md:text-left">Pilih Paket Kamar</label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label className="block text-sm font-semibold text-slate-700 mb-3 text-center md:text-left">Pilih Tipe Kamar</label>
+                    <div className="grid grid-cols-1 gap-4">
                       {roomOptions.map(room => (
-                        <label key={room.value} className={`relative flex flex-col p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.roomType === room.value ? 'border-primary bg-primary/5' : 'border-slate-100 hover:border-slate-200'}`}>
-                          <input type="radio" name="roomType" value={room.value} checked={formData.roomType === room.value} onChange={handleChange} className="sr-only" />
-                          <span className="font-bold text-slate-900">{room.label}</span>
-                          <span className="text-xs text-slate-500 mt-1">{room.sub}</span>
-                          <span className="text-sm font-bold text-primary mt-3">Rp {parseInt(room.price).toLocaleString('id-ID')}</span>
-                          {formData.roomType === room.value && <div className="absolute top-3 right-3 w-4 h-4 bg-primary rounded-full border-2 border-white shadow-sm" />}
+                        <label key={room.value} className={`relative flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all ${formData.roomType === room.value ? 'border-primary bg-primary/5' : 'border-slate-100 hover:border-slate-200'}`}>
+                          <input type="radio" name="roomType" value={room.value} checked={formData.roomType === room.value} onChange={handleChange} className="w-5 h-5 text-primary accent-primary" />
+                          <div className="ml-4 flex-1">
+                            <div className="flex justify-between items-center">
+                                <span className="font-bold text-slate-900 text-lg">{room.label}</span>
+                                <span className="text-primary font-bold">Rp {parseInt(room.price).toLocaleString('id-ID')}</span>
+                            </div>
+                            <p className="text-sm text-slate-500 mt-1">{room.sub}</p>
+                          </div>
                         </label>
                       ))}
                     </div>
@@ -193,7 +214,7 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
                       const Icon = method.icon
                       return (
                         <label key={method.id} className={`flex items-center p-4 border rounded-xl cursor-pointer transition-all ${formData.paymentMethod === method.id ? 'bg-slate-50 border-primary' : 'border-slate-100 hover:bg-slate-50'}`}>
-                          <input type="radio" name="paymentMethod" value={method.id} checked={formData.paymentMethod === method.id} onChange={handleChange} className="w-4 h-4 text-primary" />
+                          <input type="radio" name="paymentMethod" value={method.id} checked={formData.paymentMethod === method.id} onChange={handleChange} className="w-4 h-4 text-primary accent-primary" />
                           <Icon className="h-5 w-5 text-slate-500 ml-4" />
                           <span className="ml-3 font-medium text-slate-700">{method.label}</span>
                         </label>

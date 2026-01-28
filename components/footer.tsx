@@ -118,7 +118,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 onClick={() => onNavigate?.('policy')} 
                 className="hover:text-white transition-colors text-left"
             >
-                Privacy Policy
+                Terms & Conditions
             </button>
           </div>
         </div>

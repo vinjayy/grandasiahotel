@@ -2,15 +2,13 @@
 
 import { PageHeader } from "@/components/page-header"
 import { 
-  UserCheck, 
-  Baby, 
+  CalendarCheck, 
   FileX, 
-  CreditCard, 
   Clock, 
-  DoorOpen, 
   Banknote, 
+  CigaretteOff, 
   ShieldAlert, 
-  Cookie,
+  Scale,
   Info
 } from "lucide-react"
 
@@ -18,74 +16,86 @@ export function PolicySection() {
   
   const policies = [
     {
-      title: "Age Requirement",
-      icon: UserCheck,
-      content: "Guests must be 18 years or older with valid identification to reserve and check-in to a room."
-    },
-    {
-      title: "Check-in and Check-out",
-      icon: Clock,
-      content: "Check-in time is at 2 PM and check-out at 12 PM. Charges are applicable for late check-out depending on the availability."
-    },
-    {
-      title: "Early Arrival",
-      icon: Clock,
-      content: "Should the accommodation is required before 2.00 PM, please inform to us by sending an email or call directly to the hotel at least the night before your arrival. Charges are applicable for late check-out depending on the availability."
-    },
-    {
-      title: "Cancellation Policy",
-      icon: FileX,
-      content: "Guest may cancel a reservation via our reservation system or sending a modification request by clicking on the link within the reservation email sent to the guest. Please be in time to avoid a No Show charge."
-    },
-    {
-      title: "Payment & Credit Card",
-      icon: CreditCard,
+      title: "1. Booking and Reservation",
+      icon: CalendarCheck,
       content: (
-        <div className="space-y-4">
-          <p>Payment gateway is valid on this website, therefore any credit / debit card details registered will be charged instantly. Should the transaction is successful, your reservation will be confirmed and the deposit will be posted onto your reservation.</p>
-          <ul className="list-disc pl-5 space-y-2 text-slate-600">
-            <li><strong>Accepted Cards:</strong> All major Credit Card, such as: Visa, MasterCard and Indonesian Debit Card. For online immediate transaction, only Visa and Master Card are acceptable.</li>
-            <li><strong>Cheque Acceptance:</strong> We do not accept cheque for payment. All charges must be settled on cash or by credit card.</li>
-            <li><strong>Charges:</strong> Your credit / debit card will be charged by GRAND ASIA HOTEL for the full price. After payment and transaction succeeds, you will receive a reservation confirmation on the registered email.</li>
-            <li><strong>Fraud Prevention:</strong> We use "Secure Socket Layer (SSL)" technology. If you suspect unauthorized use, contact your bank immediately. We have stringent fraud detection mechanisms; in certain cases, we may require additional verification.</li>
-          </ul>
+        <ul className="list-disc pl-5 space-y-2 text-slate-600">
+            <li>All reservations must be guaranteed with a valid credit card or a full advance deposit.</li>
+            <li>The guest who made the booking must be at least 18 years of age and present a valid government-issued photo ID (KTP/Passport) upon check-in.</li>
+            <li>Special requests (e.g., bed type, floor level) are subject to availability and are not guaranteed.</li>
+        </ul>
+      )
+    },
+    {
+      title: "2. Cancellation and Refund Policy",
+      icon: FileX,
+      content: (
+        <div className="space-y-3 text-slate-600">
+            <p className="font-bold text-red-600 bg-red-50 inline-block px-3 py-1 rounded-md text-sm border border-red-100">
+                STRICTLY NON-REFUNDABLE
+            </p>
+            <ul className="list-disc pl-5 space-y-2">
+                <li><strong>Non-Refundable Rates:</strong> All bookings made under "Non-Refundable," "Advance Purchase," or "Special Promotional" rates are strictly non-refundable.</li>
+                <li><strong>No Modifications:</strong> Once a non-refundable booking is confirmed, no changes to the dates, room type, or guest name will be permitted.</li>
+                <li><strong>Cancellations:</strong> In the event of a cancellation or "no-show," the total price of the reservation (including taxes and fees) will be charged, and no refund will be issued.</li>
+                <li><strong>Early Departure:</strong> No refunds or credits will be provided for guests who choose to check out earlier than their scheduled departure date.</li>
+            </ul>
         </div>
       )
     },
     {
-      title: "Currency Policy",
-      icon: Banknote,
-      content: "All rates are per room per night using Indonesian Rupiah (IDR) rates. All taxes and service charge are included on the room rate."
-    },
-    {
-      title: "Connecting Room",
-      icon: DoorOpen,
-      content: "Connecting Rooms are available and hotel cannot guarantee one’s request due to the availability and different rate types."
-    },
-    {
-      title: "Babysitting / Child Care",
-      icon: Baby,
-      content: "Childcare or babysitting service is available on booking arrangement with a nominal charge applied. Please request upon reservation for this service."
-    },
-    {
-      title: "Cookies Policy",
-      icon: Cookie,
+      title: "3. Check-in and Check-out",
+      icon: Clock,
       content: (
-        <div className="space-y-4">
-          <p>GRAND ASIA HOTEL uses cookies on www.grandasia-hotel.id. By using the Service, you consent to the use of cookies.</p>
-          <div>
-            <strong className="text-slate-900">What are cookies?</strong>
-            <p className="mt-1">Cookies are small pieces of text sent by your web browser by a website you visit. A cookie file is stored in your web browser and allows the Service or a third-party to recognize you and make your next visit easier.</p>
-          </div>
-          <div>
-            <strong className="text-slate-900">How we use cookies:</strong>
-            <p className="mt-1">We use cookies to enable certain functions of the Service, to provide analytics, to store your preferences, and to enable advertisements delivery.</p>
-          </div>
-          <div>
-            <strong className="text-slate-900">Your choices:</strong>
-            <p className="mt-1">If you’d like to delete cookies or instruct your web browser to delete or refuse cookies, please visit the help pages of your web browser. Note that if you delete cookies, you might not be able to use all of the features we offer.</p>
-          </div>
+        <ul className="list-disc pl-5 space-y-2 text-slate-600">
+            <li><strong>Check-in Time:</strong> From 14:00 (2:00 PM) onwards.</li>
+            <li><strong>Check-out Time:</strong> No later than 12:00 (12:00 PM).</li>
+            <li><strong>Late Check-out:</strong> Requests for late check-out are subject to availability and will incur additional charges:
+                <ul className="list-[circle] pl-5 mt-1 text-sm space-y-1">
+                    <li>Up to 18:00: <span className="font-medium text-slate-900">50% of the daily room rate.</span></li>
+                    <li>After 18:00: <span className="font-medium text-slate-900">100% of the daily room rate.</span></li>
+                </ul>
+            </li>
+        </ul>
+      )
+    },
+    {
+      title: "4. Security Deposit",
+      icon: Banknote,
+      content: (
+        <p className="text-slate-600 leading-relaxed">
+            A security deposit (cash or credit card authorization) is required upon check-in to cover incidental charges (mini-bar, laundry, damages, etc.). This deposit is fully refundable upon check-out, provided no damages or incidental charges have been incurred.
+        </p>
+      )
+    },
+    {
+      title: "5. Hotel Rules and Guest Conduct",
+      icon: CigaretteOff,
+      content: (
+        <ul className="list-disc pl-5 space-y-2 text-slate-600">
+            <li><strong>Smoking Policy:</strong> Grand Asia Hotel is a non-smoking property. Smoking in guest rooms will result in a cleaning fee of <span className="font-bold text-[#7d0000]">IDR 2,000,000</span>.</li>
+            <li><strong>Prohibited Items:</strong> Drugs, firearms, explosive materials, and pets are strictly prohibited on hotel premises.</li>
+            <li><strong>Quiet Hours:</strong> To ensure the comfort of all guests, please keep noise to a minimum between 22:00 and 07:00.</li>
+        </ul>
+      )
+    },
+    {
+      title: "6. Liability",
+      icon: ShieldAlert,
+      content: (
+        <div className="space-y-2 text-slate-600">
+            <p>Grand Asia Hotel is not responsible for the loss, theft, or damage of any money, jewelry, or valuables left in the guest rooms. We strongly recommend using the in-room electronic safety deposit box.</p>
+            <p>Guests are liable for any damage caused to the hotel property or equipment by themselves or their visitors.</p>
         </div>
+      )
+    },
+    {
+      title: "7. Governing Law",
+      icon: Scale,
+      content: (
+        <p className="text-slate-600 leading-relaxed">
+            These terms and conditions are governed by the laws of the Republic of Indonesia. Any disputes arising shall be settled in the courts of Jakarta.
+        </p>
       )
     }
   ]
@@ -94,9 +104,9 @@ export function PolicySection() {
     <div className="bg-white">
       <PageHeader
         tag="Information"
-        title="Hotel Policies"
-        subtitle="Guidelines and terms to ensure a pleasant stay for all our guests."
-        backgroundImage="url('/lobby.jpeg')" // Menggunakan foto lobby
+        title="Terms & Conditions"
+        subtitle="Please read our terms carefully to ensure a comfortable stay."
+        backgroundImage="url('/lobby.jpeg')"
       />
 
       <section className="py-24 bg-slate-50">
@@ -113,7 +123,7 @@ export function PolicySection() {
                     <policy.icon className="h-6 w-6 text-[#7d0000]" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-serif text-xl font-bold text-slate-900 mb-3">
+                    <h3 className="font-serif text-xl font-bold text-slate-900 mb-4">
                       {policy.title}
                     </h3>
                     <div className="text-slate-600 leading-relaxed text-sm md:text-base">
@@ -128,7 +138,7 @@ export function PolicySection() {
           <div className="mt-12 p-6 bg-amber-50 border border-amber-100 rounded-xl flex gap-4 text-sm text-amber-900">
             <Info className="h-5 w-5 shrink-0 text-amber-600 mt-0.5" />
             <p>
-              <strong>Note:</strong> Grand Asia Hotel reserves the right to change these terms and conditions at any time without prior notice. Please check this page regularly for updates.
+              <strong>Note:</strong> By making a reservation or staying at our property, you agree to comply with and be bound by the terms above. Grand Asia Hotel reserves the right to update these terms without prior notice.
             </p>
           </div>
 

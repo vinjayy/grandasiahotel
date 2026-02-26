@@ -12,19 +12,19 @@ export function Footer({ onNavigate }: FooterProps) {
   return (
     <footer className="bg-neutral-950 text-white pt-24 pb-10 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        
+
         {/* --- Top Section: Main Content --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
-          
+
           {/* 1. Brand Identity (Span 4 cols) */}
           <div className="lg:col-span-4 space-y-6">
-            <img 
-              src="/logowhite.png" 
-              alt="Grand Asia Hotel White Logo" 
+            <img
+              src="/logowhite.png"
+              alt="Grand Asia Hotel White Logo"
               className="h-28 w-auto object-contain opacity-90"
             />
             <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
-              Menghadirkan kenyamanan dan kemewahan di jantung Jakarta Utara. 
+              Menghadirkan kenyamanan dan kemewahan di jantung Jakarta Utara.
               Destinasi utama untuk perjalanan bisnis dan liburan keluarga Anda dengan pelayanan berkelas internasional.
             </p>
             <div className="flex items-center gap-4 pt-2">
@@ -54,7 +54,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 { label: 'KTV & Lounge', id: 'ktv' }
               ].map((item) => (
                 <li key={item.id}>
-                  <button 
+                  <button
                     onClick={() => onNavigate?.(item.id)}
                     className="hover:text-[#7d0000] transition-colors flex items-center gap-2 group text-left"
                   >
@@ -81,7 +81,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 <Mail className="h-5 w-5 text-[#7d0000] mt-0.5 group-hover:text-white transition-colors" />
                 <div>
                   <p className="font-medium text-white mb-1">Email</p>
-                  <span className="hover:text-white transition-colors cursor-pointer">grandasiahotel99@gmail.com</span>
+                  <span className="hover:text-white transition-colors cursor-pointer">admin@ptsumberjayasugihmakmur.co.id</span>
                 </div>
               </li>
             </ul>
@@ -93,17 +93,17 @@ export function Footer({ onNavigate }: FooterProps) {
             <div className="flex items-start gap-3 text-sm text-neutral-400 group">
               <MapPin className="h-5 w-5 text-[#7d0000] mt-1 shrink-0 group-hover:text-white transition-colors" />
               <p className="leading-relaxed">
-                Jl. Bandengan Sel. No.88, RT.1/RW.2, Pejagalan, Kec. Penjaringan, <br/> Jakarta Utara 14450
+                Jl. Bandengan Sel. No.88, RT.1/RW.2, Pejagalan, Kec. Penjaringan, <br /> Jakarta Utara 14450
               </p>
             </div>
             {/* Maps Link */}
-            <a 
-                href="https://maps.app.goo.gl/1FaoR4SwGZj5pSar5" 
-                target="_blank" 
-                rel="noreferrer"
-                className="inline-block mt-4 text-xs font-bold text-[#7d0000] border-b border-[#7d0000] pb-0.5 hover:text-white hover:border-white transition-all"
+            <a
+              href="https://maps.app.goo.gl/1FaoR4SwGZj5pSar5"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block mt-4 text-xs font-bold text-[#7d0000] border-b border-[#7d0000] pb-0.5 hover:text-white hover:border-white transition-all"
             >
-                LIHAT DI GOOGLE MAPS
+              LIHAT DI GOOGLE MAPS
             </a>
           </div>
 
@@ -114,11 +114,11 @@ export function Footer({ onNavigate }: FooterProps) {
           <p>© {new Date().getFullYear()} Grand Asia Hotel Jakarta. All rights reserved.</p>
           <div className="flex gap-6">
             {/* 3. Gunakan Button onClick untuk navigasi ke Policy */}
-            <button 
-                onClick={() => onNavigate?.('policy')} 
-                className="hover:text-white transition-colors text-left"
+            <button
+              onClick={() => onNavigate?.('policy')}
+              className="hover:text-white transition-colors text-left"
             >
-                Terms & Conditions
+              Terms & Conditions
             </button>
           </div>
         </div>

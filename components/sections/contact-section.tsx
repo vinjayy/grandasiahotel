@@ -33,8 +33,8 @@ export function ContactSection() {
     {
       icon: Mail,
       label: "Email Inquiry",
-      value: "grandasiahotel99@gmail.com",
-      action: "mailto:grandasiahotel99@gmail.com",
+      value: "admin@ptsumberjayasugihmakmur.co.id",
+      action: "mailto:admin@ptsumberjayasugihmakmur.co.id",
       actionLabel: "Send Email",
       color: "text-red-600"
     }
@@ -51,9 +51,9 @@ export function ContactSection() {
 
       <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            
+
             {/* --- LEFT COLUMN: Contact Info --- */}
             <div>
               <div className="mb-12">
@@ -68,7 +68,7 @@ export function ContactSection() {
               {/* Contact List */}
               <div className="space-y-6">
                 {contactMethods.map((item, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="flex flex-col sm:flex-row sm:items-center justify-between p-6 rounded-2xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-lg hover:border-slate-200 transition-all duration-300 group"
                   >
@@ -81,10 +81,10 @@ export function ContactSection() {
                         <p className="text-lg font-bold text-slate-900">{item.value}</p>
                       </div>
                     </div>
-                    
-                    <a 
-                      href={item.action} 
-                      target="_blank" 
+
+                    <a
+                      href={item.action}
+                      target="_blank"
                       rel="noopener noreferrer"
                     >
                       <Button variant="outline" className="rounded-full border-slate-300 hover:border-[#7d0000] hover:text-[#7d0000] transition-colors">
@@ -119,18 +119,18 @@ export function ContactSection() {
 
             {/* --- RIGHT COLUMN: Big Map --- */}
             <div className="relative h-[500px] lg:h-auto min-h-[600px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-slate-200">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.949485524044!2d106.79501979999999!3d-6.1374893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f7a062027599%3A0xcbfac67f37517d27!2sGrand%20Asia%20Hotel%20Jakarta!5e0!3m2!1sen!2sid!4v1769241478598!5m2!1sen!2sid" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen 
-                loading="lazy" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.949485524044!2d106.79501979999999!3d-6.1374893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f7a062027599%3A0xcbfac67f37517d27!2sGrand%20Asia%20Hotel%20Jakarta!5e0!3m2!1sen!2sid!4v1769241478598!5m2!1sen!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="grayscale hover:grayscale-0 transition-all duration-700 ease-in-out"
                 title="Peta Lokasi Grand Asia Hotel"
               />
-              
+
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent h-32 pointer-events-none" />
             </div>
 

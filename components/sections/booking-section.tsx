@@ -10,8 +10,12 @@ import {
   ShieldCheck, 
   Info,
   CalendarDays,
-  BedDouble
+  BedDouble,
+  FileText
 } from 'lucide-react'
+import { Checkbox } from "@/components/ui/checkbox"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Label } from "@/components/ui/label"
 
 // Mock images untuk logo payment
 const PAYMENT_LOGOS = [
@@ -68,6 +72,7 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
     roomType: 'superior', // Default ke superior
     paymentMethod: 'transfer-bank',
   })
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
 
   const paymentMethods = [
     { id: 'transfer-bank', label: 'Kartu Kredit / Debit Online', icon: CreditCard },
@@ -87,6 +92,10 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
     e.preventDefault()
     if (!formData.fullName || !formData.phone || !formData.email || !formData.bookingDate) {
       alert('Mohon isi semua field yang diperlukan')
+      return
+    }
+    if (!agreedToTerms) {
+      alert('Anda harus menyetujui Syarat dan Ketentuan untuk melanjutkan')
       return
     }
     onBookingComplete({
@@ -229,6 +238,107 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
                       {PAYMENT_LOGOS.map((logo) => (
                         <img key={logo.name} src={logo.url} alt={logo.name} className="h-6 md:h-7 object-contain" title={logo.name} />
                       ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Seksi Syarat & Ketentuan */}
+              <section className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div className="p-6 border-b border-slate-100 bg-slate-50/50">
+                  <h2 className="text-lg font-bold flex items-center gap-2 text-slate-800">
+                    <span className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm">4</span>
+                    Syarat & Ketentuan
+                  </h2>
+                </div>
+                <div className="p-8 space-y-6">
+                  <ScrollArea className="h-64 w-full rounded-xl border border-slate-200 p-4 bg-slate-50/30">
+                    <div className="text-sm text-slate-600 leading-relaxed space-y-4">
+                      <h3 className="font-bold text-slate-900">Terms and Conditions – Grand Asia Hotel</h3>
+                      <p>Welcome to Grand Asia Hotel. By making a reservation or staying at our property, you agree to comply with and be bound by the following terms and conditions. Please read them carefully.</p>
+                      
+                      <div>
+                        <h4 className="font-bold text-slate-800 mb-1">1. Booking and Reservation</h4>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>All reservations must be guaranteed with a valid credit card or a full advance deposit.</li>
+                          <li>The guest who made the booking must be at least 18 years of age and present a valid government-issued photo ID (KTP/Passport) upon check-in.</li>
+                          <li>Special requests (e.g., bed type, floor level) are subject to availability and are not guaranteed.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-slate-800 mb-1">2. Cancellation and Refund Policy (STRICTLY NON-REFUNDABLE)</h4>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li><span className="font-semibold">Non-Refundable Rates:</span> All bookings made under "Non-Refundable," "Advance Purchase," or "Special Promotional" rates are strictly non-refundable.</li>
+                          <li><span className="font-semibold">No Modifications:</span> Once a non-refundable booking is confirmed, no changes to the dates, room type, or guest name will be permitted.</li>
+                          <li><span className="font-semibold">Cancellations:</span> In the event of a cancellation or "no-show," the total price of the reservation (including taxes and fees) will be charged, and no refund will be issued.</li>
+                          <li><span className="font-semibold">Early Departure:</span> No refunds or credits will be provided for guests who choose to check out earlier than their scheduled departure date.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-slate-800 mb-1">3. Check-in and Check-out</h4>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>Check-in Time: From 14:00 (2:00 PM) onwards.</li>
+                          <li>Check-out Time: No later than 12:00 (12:00 PM).</li>
+                          <li>Late Check-out: Requests for late check-out are subject to availability and will incur additional charges:
+                            <ul className="list-[circle] pl-5 mt-1">
+                              <li>Up to 18:00: 50% of the daily room rate.</li>
+                              <li>After 18:00: 100% of the daily room rate.</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-slate-800 mb-1">4. Security Deposit</h4>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>A security deposit (cash or credit card authorization) is required upon check-in to cover incidental charges (mini-bar, laundry, damages, etc.).</li>
+                          <li>This deposit is fully refundable upon check-out, provided no damages or incidental charges have been incurred.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-slate-800 mb-1">5. Hotel Rules and Guest Conduct</h4>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>Smoking Policy: Grand Asia Hotel is a non-smoking property. Smoking in guest rooms will result in a cleaning fee of IDR 2,000,000.</li>
+                          <li>Prohibited Items: Drugs, firearms, explosive materials, and pets are strictly prohibited on hotel premises.</li>
+                          <li>Quiet Hours: To ensure the comfort of all guests, please keep noise to a minimum between 22:00 and 07:00.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-slate-800 mb-1">6. Liability</h4>
+                        <ul className="list-disc pl-5 space-y-1">
+                          <li>Grand Asia Hotel is not responsible for the loss, theft, or damage of any money, jewelry, or valuables left in the guest rooms. We strongly recommend using the in-room electronic safety deposit box.</li>
+                          <li>Guests are liable for any damage caused to the hotel property or equipment by themselves or their visitors.</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-slate-800 mb-1">7. Governing Law</h4>
+                        <p>These terms and conditions are governed by the laws of the Republic of Indonesia. Any disputes arising shall be settled in the courts of Jakarta.</p>
+                      </div>
+                    </div>
+                  </ScrollArea>
+
+                  <div className="flex items-start space-x-3 pt-2">
+                    <Checkbox 
+                      id="terms" 
+                      checked={agreedToTerms}
+                      onCheckedChange={(checked) => setAgreedToTerms(checked as boolean)}
+                      className="mt-1"
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                      <Label
+                        htmlFor="terms"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-slate-700 cursor-pointer"
+                      >
+                        Saya menyetujui Syarat dan Ketentuan yang berlaku
+                      </Label>
+                      <p className="text-xs text-slate-500">
+                        Dengan mencentang ini, Anda setuju dengan kebijakan pembatalan dan aturan hotel kami.
+                      </p>
                     </div>
                   </div>
                 </div>

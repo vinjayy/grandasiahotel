@@ -300,7 +300,7 @@ export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProp
               </div>
               <div className="flex items-start gap-4">
                 <CreditCard className="h-6 w-6 text-primary mt-1 shrink-0" />
-                <div>
+                <div className="flex-1">
                   <p className="text-sm text-muted-foreground mb-1">Metode Pembayaran</p>
                   <p className="text-base font-medium text-foreground capitalize">
                     {bookingData.paymentMethod === 'credit-card' && 'Kartu Kredit / Debit Online'}
@@ -308,6 +308,17 @@ export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProp
                     {bookingData.paymentMethod === 'e-wallet' && 'E-Wallet'}
                     {bookingData.paymentMethod === 'cash' && 'Tunai'}
                   </p>
+
+                  {(bookingData.paymentMethod === 'credit-card' || bookingData.paymentMethod === 'transfer-bank') && (
+                    <div className="mt-4 p-4 rounded-xl border border-primary/20 bg-primary/5">
+                      <p className="text-sm text-muted-foreground mb-2">Silakan selesaikan pembayaran Anda ke rekening berikut:</p>
+                      <div className="bg-background p-3 rounded-lg border border-border shadow-sm">
+                        <p className="font-bold text-lg text-foreground tracking-wider">168-00-1660066-8</p>
+                        <p className="font-semibold text-foreground">MANDIRI</p>
+                        <p className="text-sm text-muted-foreground">PT SUMBER JAYA SUGIH MAKMUR</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

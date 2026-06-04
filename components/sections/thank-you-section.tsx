@@ -278,6 +278,20 @@ export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProp
                 </div>
               </div>
               <div className="flex items-start gap-4 mb-6">
+                <Calendar className="h-6 w-6 text-primary mt-1 shrink-0" />
+                <div>
+                  <p className="text-sm text-muted-foreground mb-1">Tanggal Check-out</p>
+                  <p className="text-base font-medium text-foreground">
+                    {bookingData.checkOutDate ? new Date(bookingData.checkOutDate).toLocaleDateString('id-ID', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }) : '-'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4 mb-6">
                 <div className="h-6 w-6 text-primary mt-1 shrink-0 flex items-center justify-center text-sm font-bold">🛏️</div>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Tipe Kamar</p>
@@ -289,7 +303,8 @@ export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProp
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Metode Pembayaran</p>
                   <p className="text-base font-medium text-foreground capitalize">
-                    {bookingData.paymentMethod === 'transfer-bank' && 'Transfer Bank'}
+                    {bookingData.paymentMethod === 'credit-card' && 'Kartu Kredit / Debit Online'}
+                    {bookingData.paymentMethod === 'transfer-bank' && 'Transfer Bank (Virtual Account)'}
                     {bookingData.paymentMethod === 'e-wallet' && 'E-Wallet'}
                     {bookingData.paymentMethod === 'cash' && 'Tunai'}
                   </p>

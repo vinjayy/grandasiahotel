@@ -36,6 +36,7 @@ export interface BookingData {
   phone: string
   email: string
   bookingDate: string
+  checkOutDate: string
   roomType: string
   paymentMethod: string
   totalPrice: string
@@ -69,19 +70,34 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
     phone: '',
     email: '',
     bookingDate: '',
+    checkOutDate: '',
     roomType: 'superior', // Default ke superior
-    paymentMethod: 'transfer-bank',
+    paymentMethod: 'credit-card',
   })
   const [agreedToTerms, setAgreedToTerms] = useState(false)
 
   const paymentMethods = [
-    { id: 'transfer-bank', label: 'Kartu Kredit / Debit Online', icon: CreditCard },
+    { id: 'credit-card', label: 'Kartu Kredit / Debit Online', icon: CreditCard },
+    { id: 'transfer-bank', label: 'Transfer Bank (Virtual Account)', icon: FileText },
     { id: 'e-wallet', label: 'E-Wallet (OVO, Dana, QRIS)', icon: DollarSign },
     { id: 'cash', label: 'Bayar di Tempat (Cash)', icon: Banknote },
   ]
 
   const selectedRoom = roomOptions.find(r => r.value === formData.roomType)
-  const totalPriceRaw = selectedRoom?.price || '0'
+  const roomPrice = parseInt(selectedRoom?.price || '0')
+  
+  let numberOfNights = 1
+  if (formData.bookingDate && formData.checkOutDate) {
+    const checkIn = new Date(formData.bookingDate)
+    const checkOut = new Date(formData.checkOutDate)
+    const diffTime = checkOut.getTime() - checkIn.getTime()
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    if (diffDays > 0) {
+      numberOfNights = diffDays
+    }
+  }
+
+  const totalPriceRaw = (roomPrice * numberOfNights).toString()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -90,7 +106,7 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.fullName || !formData.phone || !formData.email || !formData.bookingDate) {
+    if (!formData.fullName || !formData.phone || !formData.email || !formData.bookingDate || !formData.checkOutDate) {
       alert('Mohon isi semua field yang diperlukan')
       return
     }
@@ -195,15 +211,29 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
                       ))}
                     </div>
                   </div>
-                  <div className="max-w-xs">
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Tanggal Check-in</label>
-                    <div className="relative">
-                      <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-                      <input
-                        type="date" name="bookingDate" value={formData.bookingDate} onChange={handleChange}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
-                        required
-                      />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg">
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Tanggal Check-in</label>
+                      <div className="relative">
+                        <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                        <input
+                          type="date" name="bookingDate" value={formData.bookingDate} onChange={handleChange}
+                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Tanggal Check-out</label>
+                      <div className="relative">
+                        <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                        <input
+                          type="date" name="checkOutDate" value={formData.checkOutDate} onChange={handleChange}
+                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                          min={formData.bookingDate || undefined}
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -361,15 +391,21 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
                   <div className="flex justify-between items-start">
                     <div>
                       <p className="text-sm font-medium text-slate-900">{selectedRoom?.label}</p>
-                      <p className="text-xs text-slate-500 mt-1">1 Kamar x 1 Malam</p>
+                      <p className="text-xs text-slate-500 mt-1">1 Kamar x {numberOfNights} Malam</p>
                     </div>
                     <span className="text-sm font-bold text-slate-900">Rp {parseInt(totalPriceRaw).toLocaleString('id-ID')}</span>
                   </div>
                   
                   {formData.bookingDate && (
-                    <div className="flex justify-between py-3 border-y border-slate-50 text-sm">
+                    <div className="flex justify-between py-3 border-t border-slate-100 text-sm">
                       <span className="text-slate-500">Check-in</span>
                       <span className="font-semibold text-slate-800">{new Date(formData.bookingDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                    </div>
+                  )}
+                  {formData.checkOutDate && (
+                    <div className="flex justify-between pb-3 border-b border-slate-100 text-sm">
+                      <span className="text-slate-500">Check-out</span>
+                      <span className="font-semibold text-slate-800">{new Date(formData.checkOutDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                     </div>
                   )}
 

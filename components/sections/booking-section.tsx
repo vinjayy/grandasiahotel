@@ -261,16 +261,7 @@ export function BookingSection({ onNavigate, onBookingComplete }: BookingSection
                     })}
                   </div>
 
-                  {(formData.paymentMethod === 'credit-card' || formData.paymentMethod === 'transfer-bank') && (
-                    <div className="mt-6 p-5 rounded-xl border border-primary/20 bg-primary/5">
-                      <p className="text-sm font-semibold text-slate-800 mb-3">Silakan lakukan transfer pembayaran ke rekening berikut:</p>
-                      <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
-                        <p className="font-bold text-xl text-slate-900 tracking-wider">168-00-1660066-8</p>
-                        <p className="font-semibold text-slate-700 mt-1">MANDIRI</p>
-                        <p className="text-sm text-slate-500">PT SUMBER JAYA SUGIH MAKMUR</p>
-                      </div>
-                    </div>
-                  )}
+
 
                   {/* Payment Icons */}
                   <div className="mt-8 pt-8 border-t border-slate-100">

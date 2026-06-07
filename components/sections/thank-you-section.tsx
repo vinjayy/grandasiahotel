@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Button } from '@/components/ui/button'
 import { 
   CheckCircle, 
@@ -13,7 +13,9 @@ import {
   Sparkles,
   Mic2, // Icon untuk KTV
   Music, // Icon untuk KTV
-  Briefcase // Icon untuk Meeting
+  Briefcase, // Icon untuk Meeting
+  Clock,
+  MessageCircle
 } from 'lucide-react'
 
 interface ThankYouSectionProps {
@@ -22,7 +24,10 @@ interface ThankYouSectionProps {
 }
 
 export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProps) {
-  
+  const [showPaymentInstructions, setShowPaymentInstructions] = useState(
+    !bookingData?.type && (bookingData?.paymentMethod === 'transfer-bank' || bookingData?.paymentMethod === 'credit-card')
+  )
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" })
   }, [])
@@ -203,7 +208,85 @@ export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProp
   }
 
   // =================================================================
-  // TAMPILAN 4: STANDAR / KAMAR
+  // TAMPILAN 4: INSTRUKSI PEMBAYARAN TRANSFER
+  // =================================================================
+  if (showPaymentInstructions) {
+    const waNumber = "6282188881366" // Nomor WA Admin
+    const message = `Halo, saya ingin konfirmasi pembayaran untuk pesanan atas nama ${bookingData.fullName} dengan total ${bookingData.totalPrice}.`
+    const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`
+
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center py-12 md:py-16 px-6 lg:px-8">
+        <div className="max-w-2xl w-full">
+          <div className="text-center mb-8">
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-xl" />
+                <Clock className="h-24 w-24 text-amber-500 relative" />
+              </div>
+            </div>
+            <h1 className="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+              Menunggu Pembayaran
+            </h1>
+            <p className="text-lg text-slate-600">
+              Selesaikan pembayaran Anda agar pesanan kamar dapat segera dikonfirmasi.
+            </p>
+          </div>
+
+          <div className="bg-white border border-slate-200 rounded-3xl p-8 md:p-10 mb-8 shadow-xl">
+            <div className="text-center mb-8">
+              <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-2">Total Tagihan</p>
+              <p className="text-4xl font-black text-primary">{bookingData.totalPrice}</p>
+            </div>
+
+            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-8">
+              <p className="text-sm font-semibold text-slate-800 mb-4">Transfer ke Rekening Berikut:</p>
+              <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <p className="font-semibold text-slate-700 text-lg">Bank MANDIRI</p>
+                <p className="font-bold text-2xl md:text-3xl text-slate-900 tracking-wider font-mono my-2 break-all md:break-normal">
+                  168-00-1660066-8
+                </p>
+                <p className="text-sm text-slate-500 uppercase">A.N PT SUMBER JAYA SUGIH MAKMUR</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <Button 
+                onClick={() => window.open(waLink, '_blank')}
+                size="lg" 
+                className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white h-14 text-lg font-bold rounded-xl shadow-lg shadow-[#25D366]/20 transition-all flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="h-6 w-6" />
+                Konfirmasi Pembayaran (WhatsApp)
+              </Button>
+              <Button 
+                onClick={() => {
+                  setShowPaymentInstructions(false)
+                  window.scrollTo({ top: 0, behavior: "smooth" })
+                }}
+                variant="default" 
+                size="lg" 
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white h-14 text-base font-bold rounded-xl shadow-lg shadow-slate-900/10"
+              >
+                Selanjutnya (Lihat Detail Pesanan)
+              </Button>
+              <Button 
+                onClick={() => onNavigate('home')} 
+                variant="outline" 
+                size="lg" 
+                className="w-full h-14 text-base font-semibold rounded-xl border-slate-200 hover:bg-slate-50 text-slate-700"
+              >
+                Kembali ke Beranda
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // =================================================================
+  // TAMPILAN 5: STANDAR / KAMAR (NON-TRANSFER)
   // =================================================================
   const getRoomLabel = (type: string) => {
     switch(type) {
@@ -238,36 +321,36 @@ export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProp
           <h2 className="font-serif text-2xl font-bold text-foreground mb-8">Detail Pemesanan</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div>
+            <div className="min-w-0">
               <div className="flex items-start gap-4 mb-6">
                 <User className="h-6 w-6 text-primary mt-1 shrink-0" />
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground mb-1">Nama Tamu</p>
-                  <p className="text-base font-medium text-foreground">{bookingData.fullName}</p>
+                  <p className="text-base font-medium text-foreground break-words">{bookingData.fullName}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4 mb-6">
                 <Phone className="h-6 w-6 text-primary mt-1 shrink-0" />
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground mb-1">Nomor Telepon</p>
-                  <p className="text-base font-medium text-foreground">{bookingData.phone}</p>
+                  <p className="text-base font-medium text-foreground break-words">{bookingData.phone}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <Mail className="h-6 w-6 text-primary mt-1 shrink-0" />
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground mb-1">Email</p>
                   <p className="text-base font-medium text-foreground break-all">{bookingData.email}</p>
                 </div>
               </div>
             </div>
 
-            <div>
+            <div className="min-w-0">
               <div className="flex items-start gap-4 mb-6">
                 <Calendar className="h-6 w-6 text-primary mt-1 shrink-0" />
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground mb-1">Tanggal Check-in</p>
-                  <p className="text-base font-medium text-foreground">
+                  <p className="text-base font-medium text-foreground break-words">
                     {bookingData.bookingDate ? new Date(bookingData.bookingDate).toLocaleDateString('id-ID', {
                       weekday: 'long',
                       year: 'numeric',
@@ -279,9 +362,9 @@ export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProp
               </div>
               <div className="flex items-start gap-4 mb-6">
                 <Calendar className="h-6 w-6 text-primary mt-1 shrink-0" />
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground mb-1">Tanggal Check-out</p>
-                  <p className="text-base font-medium text-foreground">
+                  <p className="text-base font-medium text-foreground break-words">
                     {bookingData.checkOutDate ? new Date(bookingData.checkOutDate).toLocaleDateString('id-ID', {
                       weekday: 'long',
                       year: 'numeric',
@@ -293,32 +376,23 @@ export function ThankYouSection({ bookingData, onNavigate }: ThankYouSectionProp
               </div>
               <div className="flex items-start gap-4 mb-6">
                 <div className="h-6 w-6 text-primary mt-1 shrink-0 flex items-center justify-center text-sm font-bold">🛏️</div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground mb-1">Tipe Kamar</p>
-                  <p className="text-base font-medium text-foreground">{getRoomLabel(bookingData.roomType)}</p>
+                  <p className="text-base font-medium text-foreground break-words">{getRoomLabel(bookingData.roomType)}</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <CreditCard className="h-6 w-6 text-primary mt-1 shrink-0" />
-                <div className="flex-1">
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground mb-1">Metode Pembayaran</p>
-                  <p className="text-base font-medium text-foreground capitalize">
+                  <p className="text-base font-medium text-foreground capitalize break-words">
                     {bookingData.paymentMethod === 'credit-card' && 'Kartu Kredit / Debit Online'}
                     {bookingData.paymentMethod === 'transfer-bank' && 'Transfer Bank (Virtual Account)'}
                     {bookingData.paymentMethod === 'e-wallet' && 'E-Wallet'}
                     {bookingData.paymentMethod === 'cash' && 'Tunai'}
                   </p>
 
-                  {(bookingData.paymentMethod === 'credit-card' || bookingData.paymentMethod === 'transfer-bank') && (
-                    <div className="mt-4 p-4 rounded-xl border border-primary/20 bg-primary/5">
-                      <p className="text-sm text-muted-foreground mb-2">Silakan selesaikan pembayaran Anda ke rekening berikut:</p>
-                      <div className="bg-background p-3 rounded-lg border border-border shadow-sm">
-                        <p className="font-bold text-lg text-foreground tracking-wider">168-00-1660066-8</p>
-                        <p className="font-semibold text-foreground">MANDIRI</p>
-                        <p className="text-sm text-muted-foreground">PT SUMBER JAYA SUGIH MAKMUR</p>
-                      </div>
-                    </div>
-                  )}
+
                 </div>
               </div>
             </div>
